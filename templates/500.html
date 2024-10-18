@@ -1,0 +1,28 @@
+<!-- templates/500.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internal Server Error</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>500 - Internal Server Error</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('index') }}">File Upload</a></li>
+            <li><a href="{{ url_for('results') }}">Results</a></li>
+        </ul>
+    </nav>
+    <section>
+        <p>Something went wrong on our end. Please try again later.</p>
+        <a href="{{ url_for('index') }}">Go back to Home</a>
+    </section>
+    <footer>
+        <p>&copy; Cisco Systems, Inc. Cisco Confidential</p>
+    </footer>
+</body>
+</html>
