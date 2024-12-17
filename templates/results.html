@@ -1,0 +1,92 @@
+<!-- templates/results.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Suite</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+</head>
+<body>
+    <header>
+        <h1>Automation Test Suite - Results</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('upload_encrypted') }}">Upload Encrypted Log</a></li>
+            <li><a href="{{ url_for('results') }}">Results</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <h2>Parsed Dart Results</h2>
+        <!-- 
+        <div class="refresh-container">
+        <button onclick="location.reload()">Refresh Results</button></div> -->
+
+        <!-- Dropdown Filter -->
+        <!-- <label for="filter">Filter Results:</label> -->
+        <div class="filter-container">
+        <select id="filter" onchange="filterResults()">
+            <option value="all">Show All</option>
+            <option value="passed">Show Passed</option>
+            <option value="failed">Show Failed</option>
+            <option value="blocked">Show Blocked</option>
+        </select>
+        </div>
+
+
+
+        <table id="resultsTable" class="display">
+            <thead>
+                <tr>
+                    <th>Sl. No.</th>
+                    <th>Timestamp</th>
+                    <th>Requirement</th>
+                    <th>Result</th>
+                    <!-- <th>Actions</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in entries %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ entry['timestamp'] }}</td>
+                    <td>{{ entry['requirement'] }}</td>
+                    <td>{{ entry['status'] if entry['status'] else 'UNKNOWN' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>&copy; Cisco Systems, Inc. Cisco Confidential</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script>
+       $(document).ready(function() {
+            // Initialize DataTable
+            const table = $('#resultsTable').DataTable();
+
+            // Event listener for dropdown filter
+            $('#filter').on('change', function() {
+                const filter = $(this).val();
+
+                if (filter === 'all') {
+                    // Clear any existing filter and show all rows
+                    table.columns(3).search('').draw();
+                } else {
+                    // Apply the filter based on selected value
+                    table.columns(3).search('^' + filter + '$', true, false).draw();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

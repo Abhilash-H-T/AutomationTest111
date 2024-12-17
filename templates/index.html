@@ -1,0 +1,55 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Suite</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Automation Test Suite</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('upload_encrypted') }}">Upload Encrypted Log</a></li>
+            <li><a href="{{ url_for('results') }}">Results</a></li>
+        </ul>
+    </nav>
+
+    <!-- Flash messages display -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <section id="home-section" class="section-content">
+        <h2>Automation Portal</h2>
+        <p>Welcome to the Automation Portal. Here you will find P1 test case results and understand the automation process.</p>
+        
+        <h3>Popular Automation Tools</h3>
+        <div class="tool-images">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Selenium_Logo.png" alt="Selenium">
+        
+            <img src="https://www.jenkins.io/images/logos/jenkins/jenkins.svg" alt="Jenkins">
+            
+            <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" alt="Docker">
+    
+            <img src="{{ url_for('static', filename='images/automator_bot.png') }}" alt="Automator">
+        </div>
+        
+    </section>
+    
+    <footer>
+        <p>&copy; Cisco Systems, Inc. Cisco Confidential</p>
+    </footer>
+</body>
+</html>
